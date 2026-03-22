@@ -1,0 +1,65 @@
+@page "/lotes"
+
+<PageTitle>Lotes</PageTitle>
+
+<RadzenStack Gap="1rem">
+    <RadzenCard>
+        <RadzenText Text="Cadastro de Lotes" TextStyle="TextStyle.H5" TagName="TagName.H1" />
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.Lotes" Data="@editModel" Submit="@SaveLote">
+            <RadzenRow Gap="1rem" RowGap="1rem">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Id Cedente" Component="IdCedente" />
+                    <RadzenNumeric Name="IdCedente" TValue="int" @bind-Value="editModel.IdCedente" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="IdCedente" Text="IdCedente e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="5">
+                    <RadzenLabel Text="Identificador Externo" Component="IdentificadorExt" />
+                    <RadzenTextBox Name="IdentificadorExt" @bind-Value="editModel.IdentificadorExt" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="IdentificadorExt" Text="Identificador e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Data Aquisicao" Component="DataAquisicao" />
+                    <RadzenDatePicker Name="DataAquisicao" TValue="DateTime" @bind-Value="editModel.DataAquisicao" DateFormat="yyyy-MM-dd" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="DataAquisicao" Text="DataAquisicao e obrigatoria" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenLabel Text="Descricao" Component="Descricao" />
+                    <RadzenTextBox Name="Descricao" @bind-Value="editModel.Descricao" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Data Finalizacao" Component="DataFinalizacao" />
+                    <RadzenDatePicker Name="DataFinalizacao" TValue="DateTime?" @bind-Value="editModel.DataFInalizacao" DateFormat="yyyy-MM-dd" Style="width: 100%;" />
+                </RadzenColumn>
+            </RadzenRow>
+
+            <RadzenStack Orientation="Orientation.Horizontal" Gap="0.75rem" class="rz-mt-4">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Salvar" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="add" Text="Novo" Click="@PrepareNewLote" />
+                @if (isEditing)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="close" Text="Cancelar Edicao" Click="@PrepareNewLote" />
+                }
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.Lotes" Data="@lotes" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhum lote encontrado.">
+            <Columns>
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Lotes" Property="IdLote" Title="ID" Width="100px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Lotes" Property="IdCedente" Title="Cedente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Lotes" Property="IdentificadorExt" Title="Identificador" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Lotes" Property="DataAquisicao" Title="Aquisicao" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Lotes" Title="Acoes" Width="170px" Sortable="false" Filterable="false" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <RadzenButton Icon="edit" Size="ButtonSize.Small" Variant="Variant.Flat" Click="@(args => BeginEdit(item))" class="rz-mr-2" />
+                        <RadzenButton Icon="delete" Size="ButtonSize.Small" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Danger" Click="@(args => DeleteLote(item))" />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenCard>
+</RadzenStack>

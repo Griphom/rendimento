@@ -1,0 +1,93 @@
+@page "/clientes"
+
+<PageTitle>Clientes</PageTitle>
+
+<RadzenStack Gap="1rem">
+    <RadzenCard>
+        <RadzenText Text="Cadastro de Clientes" TextStyle="TextStyle.H5" TagName="TagName.H1" />
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Data="@editModel" Submit="@SaveCliente">
+            <RadzenRow Gap="1rem" RowGap="1rem">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Id Cedente" Component="IdCedente" />
+                    <RadzenNumeric Name="IdCedente" TValue="int" @bind-Value="editModel.IdCedente" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="IdCedente" Text="IdCedente e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="9">
+                    <RadzenLabel Text="Nome" Component="Nome" />
+                    <RadzenTextBox Name="Nome" @bind-Value="editModel.Nome" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="Nome" Text="Nome e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="CPF/CNPJ" Component="CpfCnpj" />
+                    <RadzenTextBox Name="CpfCnpj" @bind-Value="editModel.CPF_CNPJ" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Data Nascimento" Component="DataNascimento" />
+                    <RadzenDatePicker Name="DataNascimento" TValue="DateTime?" @bind-Value="editModel.DataNascimento" DateFormat="yyyy-MM-dd" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="UF Nascimento" Component="UFNascimento" />
+                    <RadzenTextBox Name="UFNascimento" @bind-Value="editModel.UFNascimento" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenLabel Text="Nome Mae" Component="NomeMae" />
+                    <RadzenTextBox Name="NomeMae" @bind-Value="editModel.NomeMae" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenLabel Text="Nome Pai" Component="NomePai" />
+                    <RadzenTextBox Name="NomePai" @bind-Value="editModel.NomePai" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Cidade Nascimento" Component="CidadeNascimento" />
+                    <RadzenTextBox Name="CidadeNascimento" @bind-Value="editModel.CidadeNascimento" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Pais Nascimento" Component="PaisNascimento" />
+                    <RadzenTextBox Name="PaisNascimento" @bind-Value="editModel.PaisNascimento" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Documento" Component="Documento" />
+                    <RadzenTextBox Name="Documento" @bind-Value="editModel.DocumentoIdentificacao" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenLabel Text="Orgao Emissor" Component="OrgaoEmissor" />
+                    <RadzenTextBox Name="OrgaoEmissor" @bind-Value="editModel.OrgaoEmissor" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenLabel Text="Email" Component="Email" />
+                    <RadzenTextBox Name="Email" @bind-Value="editModel.Email" Style="width: 100%;" />
+                </RadzenColumn>
+            </RadzenRow>
+
+            <RadzenStack Orientation="Orientation.Horizontal" Gap="0.75rem" class="rz-mt-4">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Salvar" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="add" Text="Novo" Click="@PrepareNewCliente" />
+                @if (isEditing)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="close" Text="Cancelar Edicao" Click="@PrepareNewCliente" />
+                }
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Data="@clientes" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhum cliente encontrado.">
+            <Columns>
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="IdCliente" Title="ID" Width="100px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="IdCedente" Title="Cedente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="Nome" Title="Nome" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="CPF_CNPJ" Title="CPF/CNPJ" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="Email" Title="Email" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Title="Acoes" Width="170px" Sortable="false" Filterable="false" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <RadzenButton Icon="edit" Size="ButtonSize.Small" Variant="Variant.Flat" Click="@(args => BeginEdit(item))" class="rz-mr-2" />
+                        <RadzenButton Icon="delete" Size="ButtonSize.Small" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Danger" Click="@(args => DeleteCliente(item))" />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenCard>
+</RadzenStack>

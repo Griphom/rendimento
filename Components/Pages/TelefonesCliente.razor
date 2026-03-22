@@ -1,0 +1,86 @@
+@page "/telefones-cliente"
+
+<PageTitle>Telefones do Cliente</PageTitle>
+
+<RadzenStack Gap="1rem">
+    <RadzenCard>
+        <RadzenText Text="Cadastro de Telefones do Cliente" TextStyle="TextStyle.H5" TagName="TagName.H1" />
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Data="@editModel" Submit="@SaveTelefone">
+            <RadzenRow Gap="1rem" RowGap="1rem">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Id Cliente" Component="IdCliente" />
+                    <RadzenNumeric Name="IdCliente" TValue="long" @bind-Value="editModel.IdCliente" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="IdCliente" Text="IdCliente e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Prefixo" Component="Prefixo" />
+                    <RadzenTextBox Name="Prefixo" @bind-Value="editModel.Prefixo" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenLabel Text="DDD" Component="DDD" />
+                    <RadzenTextBox Name="DDD" @bind-Value="editModel.DDD" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="DDD" Text="DDD e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Numero" Component="Numero" />
+                    <RadzenTextBox Name="Numero" @bind-Value="editModel.Numero" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="Numero" Text="Numero e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Apelido" Component="Apelido" />
+                    <RadzenTextBox Name="Apelido" @bind-Value="editModel.Apelido" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenCheckBox Name="SMS" TValue="bool" @bind-Value="editModel.SMS" />
+                    <RadzenLabel Text="SMS" Component="SMS" class="rz-ml-2" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenCheckBox Name="Whatsapp" TValue="bool" @bind-Value="editModel.Whatsapp" />
+                    <RadzenLabel Text="Whatsapp" Component="Whatsapp" class="rz-ml-2" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenCheckBox Name="HorarioComercial" TValue="bool" @bind-Value="editModel.HorarioComercial" />
+                    <RadzenLabel Text="Comercial" Component="HorarioComercial" class="rz-ml-2" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenCheckBox Name="HorarioResidencial" TValue="bool" @bind-Value="editModel.HorarioResidencial" />
+                    <RadzenLabel Text="Residencial" Component="HorarioResidencial" class="rz-ml-2" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="2">
+                    <RadzenCheckBox Name="Principal" TValue="bool" @bind-Value="editModel.Principal" />
+                    <RadzenLabel Text="Principal" Component="Principal" class="rz-ml-2" />
+                </RadzenColumn>
+            </RadzenRow>
+
+            <RadzenStack Orientation="Orientation.Horizontal" Gap="0.75rem" class="rz-mt-4">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Salvar" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="add" Text="Novo" Click="@PrepareNewTelefone" />
+                @if (isEditing)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="close" Text="Cancelar Edicao" Click="@PrepareNewTelefone" />
+                }
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Data="@telefones" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhum telefone encontrado.">
+            <Columns>
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="IdTelefone" Title="ID" Width="100px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="IdCliente" Title="Cliente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="DDD" Title="DDD" Width="90px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="Numero" Title="Numero" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="Apelido" Title="Apelido" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Title="Acoes" Width="170px" Sortable="false" Filterable="false" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <RadzenButton Icon="edit" Size="ButtonSize.Small" Variant="Variant.Flat" Click="@(args => BeginEdit(item))" class="rz-mr-2" />
+                        <RadzenButton Icon="delete" Size="ButtonSize.Small" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Danger" Click="@(args => DeleteTelefone(item))" />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenCard>
+</RadzenStack>

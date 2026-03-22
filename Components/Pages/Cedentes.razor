@@ -1,0 +1,51 @@
+@page "/cedentes"
+
+<PageTitle>Cedentes</PageTitle>
+
+<RadzenStack Gap="1rem">
+    <RadzenCard>
+        <RadzenText Text="Cadastro de Cedentes" TextStyle="TextStyle.H5" TagName="TagName.H1" />
+        <RadzenText Text="Gerencie os registros da tabela Cedentes." TextStyle="TextStyle.Body2" />
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.Cedentes" Data="@editModel" Submit="@SaveCedente">
+            <RadzenRow Gap="1rem" RowGap="1rem">
+                <RadzenColumn Size="12" SizeMD="4">
+                    <RadzenLabel Text="Nome" Component="NomeCedente" />
+                    <RadzenTextBox Name="NomeCedente" @bind-Value="editModel.Nome" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="NomeCedente" Text="Nome e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="8">
+                    <RadzenLabel Text="Descricao" Component="DescricaoCedente" />
+                    <RadzenTextBox Name="DescricaoCedente" @bind-Value="editModel.Descricao" Style="width: 100%;" />
+                </RadzenColumn>
+            </RadzenRow>
+
+            <RadzenStack Orientation="Orientation.Horizontal" Gap="0.75rem" class="rz-mt-4">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Salvar" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="add" Text="Novo" Click="@PrepareNewCedente" />
+                @if (isEditing)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="close" Text="Cancelar Edicao" Click="@PrepareNewCedente" />
+                }
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.Cedentes" Data="@cedentes" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhum cedente encontrado.">
+            <Columns>
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Cedentes" Property="IdCedente" Title="ID" Width="100px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Cedentes" Property="Nome" Title="Nome" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Cedentes" Property="Descricao" Title="Descricao" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Cedentes" Title="Acoes" Width="170px" Sortable="false" Filterable="false" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <RadzenButton Icon="edit" Size="ButtonSize.Small" Variant="Variant.Flat" Click="@(args => BeginEdit(item))" class="rz-mr-2" />
+                        <RadzenButton Icon="delete" Size="ButtonSize.Small" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Danger" Click="@(args => DeleteCedente(item))" />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenCard>
+</RadzenStack>

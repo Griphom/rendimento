@@ -1,0 +1,93 @@
+@page "/operacoes"
+
+<PageTitle>Operacoes</PageTitle>
+
+<RadzenStack Gap="1rem">
+    <RadzenCard>
+        <RadzenText Text="Cadastro de Operacoes" TextStyle="TextStyle.H5" TagName="TagName.H1" />
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Data="@editModel" Submit="@SaveOperacao">
+            <RadzenRow Gap="1rem" RowGap="1rem">
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Id Lote" Component="IdLote" />
+                    <RadzenNumeric Name="IdLote" TValue="int" @bind-Value="editModel.IdLote" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="IdLote" Text="IdLote e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Id Cliente" Component="IdCliente" />
+                    <RadzenNumeric Name="IdCliente" TValue="long" @bind-Value="editModel.IdCliente" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="IdCliente" Text="IdCliente e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Valor Original" Component="ValorOriginal" />
+                    <RadzenNumeric Name="ValorOriginal" TValue="decimal" @bind-Value="editModel.ValorOriginal" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="ValorOriginal" Text="ValorOriginal e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Qtd Parcelas" Component="QuantidadeParcelas" />
+                    <RadzenNumeric Name="QuantidadeParcelas" TValue="int" @bind-Value="editModel.QuantidadeParcelas" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="QuantidadeParcelas" Text="QuantidadeParcelas e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Valor Parcela" Component="ValorParcela" />
+                    <RadzenNumeric Name="ValorParcela" TValue="decimal" @bind-Value="editModel.ValorParcela" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="ValorParcela" Text="ValorParcela e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Inicio Contrato" Component="InicioContrato" />
+                    <RadzenDatePicker Name="InicioContrato" TValue="DateTime" @bind-Value="editModel.InicioContrato" DateFormat="yyyy-MM-dd" Style="width: 100%;" />
+                    <RadzenRequiredValidator Component="InicioContrato" Text="InicioContrato e obrigatorio" Popup="true" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Final Contrato" Component="FinalContrato" />
+                    <RadzenDatePicker Name="FinalContrato" TValue="DateTime?" @bind-Value="editModel.FinalContrato" DateFormat="yyyy-MM-dd" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Ultimo Desconto" Component="UltimoDesconto" />
+                    <RadzenDatePicker Name="UltimoDesconto" TValue="DateTime?" @bind-Value="editModel.UltimoDesconto" DateFormat="yyyy-MM-dd" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Valor Ultimo Desconto" Component="ValorUltimoDesconto" />
+                    <RadzenNumeric Name="ValorUltimoDesconto" TValue="decimal?" @bind-Value="editModel.ValorUltimoDesconto" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Proximo Desconto" Component="ProximoDesconto" />
+                    <RadzenDatePicker Name="ProximoDesconto" TValue="DateTime?" @bind-Value="editModel.ProximoDesconto" DateFormat="yyyy-MM-dd" Style="width: 100%;" />
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenLabel Text="Valor Proximo Desconto" Component="ValorProximoDesconto" />
+                    <RadzenNumeric Name="ValorProximoDesconto" TValue="decimal?" @bind-Value="editModel.ValorProximoDesconto" Style="width: 100%;" />
+                </RadzenColumn>
+            </RadzenRow>
+
+            <RadzenStack Orientation="Orientation.Horizontal" Gap="0.75rem" class="rz-mt-4">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Salvar" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" Icon="add" Text="Novo" Click="@PrepareNewOperacao" />
+                @if (isEditing)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="close" Text="Cancelar Edicao" Click="@PrepareNewOperacao" />
+                }
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenCard>
+
+    <RadzenCard>
+        <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Data="@operacoes" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhuma operacao encontrada.">
+            <Columns>
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="IdOperacao" Title="ID" Width="100px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="IdLote" Title="Lote" Width="100px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="IdCliente" Title="Cliente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="ValorOriginal" Title="Valor Original" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="QuantidadeParcelas" Title="Parcelas" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Title="Acoes" Width="170px" Sortable="false" Filterable="false" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <RadzenButton Icon="edit" Size="ButtonSize.Small" Variant="Variant.Flat" Click="@(args => BeginEdit(item))" class="rz-mr-2" />
+                        <RadzenButton Icon="delete" Size="ButtonSize.Small" Variant="Variant.Flat" ButtonStyle="ButtonStyle.Danger" Click="@(args => DeleteOperacao(item))" />
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </RadzenCard>
+</RadzenStack>
