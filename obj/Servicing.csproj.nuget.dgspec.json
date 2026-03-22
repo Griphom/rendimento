@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj": {}
+    "c:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj": {
+    "c:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj",
+        "projectUniqueName": "c:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj",
         "projectName": "Servicing",
-        "projectPath": "C:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj",
+        "projectPath": "c:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\Servicing.csproj",
         "packagesPath": "C:\\Users\\miche\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\obj\\",
+        "outputPath": "c:\\Users\\miche\\OneDrive\\Documentos\\Desenvolvimento\\Rendimento\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\miche\\AppData\\Roaming\\NuGet\\NuGet.Config"

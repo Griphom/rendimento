@@ -10,11 +10,11 @@ namespace Servicing.Models.sql_rendimento_consignado
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdLote { get; set; }
+        public long IdLote { get; set; }
 
         [Required]
         [ConcurrencyCheck]
-        public int IdCedente { get; set; }
+        public long IdCedente { get; set; }
 
         public Cedentes Cedentes { get; set; }
 
@@ -33,7 +33,7 @@ namespace Servicing.Models.sql_rendimento_consignado
 
         [Column(TypeName="datetime2")]
         [ConcurrencyCheck]
-        public DateTime? DataFinalizacao { get; set; }
+        public DateTime? DataFInalizacao { get; set; }
 
         public ICollection<Operacoes> Operacoes { get; set; }
     }

@@ -25,8 +25,8 @@ namespace Servicing.Controllers
             return Ok(items);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<Cedentes>> GetCedenteById(int id)
+        [HttpGet("{id:long}")]
+        public async Task<ActionResult<Cedentes>> GetCedenteById(long id)
         {
             var item = await service.GetCedentesByIdCedente(id);
             if (item == null)
@@ -49,8 +49,8 @@ namespace Servicing.Controllers
             return CreatedAtAction(nameof(GetCedenteById), new { id = created.IdCedente }, created);
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Cedentes>> UpdateCedente(int id, [FromBody] Cedentes cedente)
+        [HttpPut("{id:long}")]
+        public async Task<ActionResult<Cedentes>> UpdateCedente(long id, [FromBody] Cedentes cedente)
         {
             if (!ModelState.IsValid)
             {
@@ -72,8 +72,8 @@ namespace Servicing.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteCedente(int id)
+        [HttpDelete("{id:long}")]
+        public async Task<IActionResult> DeleteCedente(long id)
         {
             var existing = await service.GetCedentesByIdCedente(id);
             if (existing == null)

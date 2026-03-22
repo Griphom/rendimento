@@ -14,7 +14,7 @@ namespace Servicing.Models.sql_rendimento_consignado
 
         [Required]
         [ConcurrencyCheck]
-        public int IdLote { get; set; }
+        public long IdLote { get; set; }
 
         public Lotes Lotes { get; set; }
 

@@ -145,6 +145,39 @@ namespace Servicing.Data
             builder.Entity<Servicing.Models.sql_rendimento_consignado.Transacoes>()
               .Property(p => p.ValorDesconto)
               .HasPrecision(18,2);
+
+            // Keep IDs as long in C# while reading int columns from the database.
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.Cedentes>()
+              .Property(p => p.IdCedente)
+              .HasConversion<int>();
+
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.Clientes>()
+              .Property(p => p.IdCedente)
+              .HasConversion<int>();
+
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.Lotes>()
+              .Property(p => p.IdLote)
+              .HasConversion<int>();
+
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.Lotes>()
+              .Property(p => p.IdCedente)
+              .HasConversion<int>();
+
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.Operacoes>()
+              .Property(p => p.IdLote)
+              .HasConversion<int>();
+
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.VwConferenciaDescontosOperacoes>()
+              .Property(p => p.IdLote)
+              .HasConversion<int?>();
+
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.VwConferenciaDescontosOperacoes>()
+              .Property(p => p.NumeroParcela)
+              .HasConversion<int>();
+
+            builder.Entity<Servicing.Models.sql_rendimento_consignado.VwConferenciaDescontosOperacoes>()
+              .HasNoKey()
+              .ToView("vw_ConferenciaDescontosOperacoes", "dbo");
             this.OnModelBuilding(builder);
         }
 
@@ -161,6 +194,8 @@ namespace Servicing.Data
         public DbSet<Servicing.Models.sql_rendimento_consignado.TelefonesCliente> TelefonesCliente { get; set; }
 
         public DbSet<Servicing.Models.sql_rendimento_consignado.Transacoes> Transacoes { get; set; }
+
+        public DbSet<Servicing.Models.sql_rendimento_consignado.VwConferenciaDescontosOperacoes> VwConferenciaDescontosOperacoes { get; set; }
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
             configurationBuilder.Conventions.Add(_ => new BlankTriggerAddingConvention());

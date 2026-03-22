@@ -47,7 +47,7 @@ namespace Servicing.Controllers
 
         // Multiple files upload with parameter
         [HttpPost("upload/{id}")]
-        public IActionResult Post(IFormFile[] files, int id)
+        public IActionResult Post(IFormFile[] files, long id)
         {
             try
             {

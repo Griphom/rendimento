@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Radzen;
+using ClienteEntity = Servicing.Models.sql_rendimento_consignado.Clientes;
 using EnderecoEntity = Servicing.Models.sql_rendimento_consignado.EnderecosCliente;
 
 namespace Servicing.Components.Pages
@@ -17,12 +18,20 @@ namespace Servicing.Components.Pages
         protected NotificationService NotificationService { get; set; }
 
         protected IList<EnderecoEntity> enderecos = new List<EnderecoEntity>();
+        protected IList<ClienteEntity> clientes = new List<ClienteEntity>();
         protected EnderecoEntity editModel = new EnderecoEntity();
         protected bool isEditing;
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadClientes();
             await LoadEnderecos();
+        }
+
+        protected async Task LoadClientes()
+        {
+            var query = await Service.GetClientes();
+            clientes = query.OrderBy(c => c.Nome).ToList();
         }
 
         protected async Task LoadEnderecos()
@@ -35,6 +44,11 @@ namespace Servicing.Components.Pages
         {
             editModel = new EnderecoEntity();
             isEditing = false;
+        }
+
+        protected string GetClienteNome(long idCliente)
+        {
+            return clientes.FirstOrDefault(c => c.IdCliente == idCliente)?.Nome ?? idCliente.ToString();
         }
 
         protected void BeginEdit(EnderecoEntity item)

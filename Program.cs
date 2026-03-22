@@ -14,6 +14,7 @@ builder.Services.AddRadzenCookieThemeService(options =>
 });
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<Servicing.sql_rendimento_consignadoService>();
+builder.Services.AddScoped<Servicing.Services.ConferenciaDescontosOperacoesService>();
 builder.Services.AddDbContext<Servicing.Data.sql_rendimento_consignadoContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("sql_rendimento_consignadoConnection"));

@@ -11,9 +11,9 @@
         <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Data="@editModel" Submit="@SaveEndereco">
             <RadzenRow Gap="1rem" RowGap="1rem">
                 <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Id Cliente" Component="IdCliente" />
-                    <RadzenNumeric Name="IdCliente" TValue="long" @bind-Value="editModel.IdCliente" Style="width: 100%;" />
-                    <RadzenRequiredValidator Component="IdCliente" Text="IdCliente e obrigatorio" Popup="true" />
+                    <RadzenLabel Text="Cliente" Component="IdCliente" />
+                    <RadzenDropDown Name="IdCliente" TValue="long" Data="@clientes" TextProperty="Nome" ValueProperty="IdCliente" @bind-Value="editModel.IdCliente" Style="width: 100%;" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" />
+                    <RadzenRequiredValidator Component="IdCliente" Text="Cliente e obrigatorio" Popup="true" />
                 </RadzenColumn>
                 <RadzenColumn Size="12" SizeMD="3">
                     <RadzenLabel Text="Apelido" Component="Apelido" />
@@ -76,7 +76,11 @@
         <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Data="@enderecos" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhum endereco encontrado.">
             <Columns>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Property="IdEndereco" Title="ID" Width="100px" />
-                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Property="IdCliente" Title="Cliente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Title="Cliente" Width="220px">
+                    <Template Context="item">
+                        @GetClienteNome(item.IdCliente)
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Property="Logradouro" Title="Logradouro" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Property="Municipio" Title="Municipio" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.EnderecosCliente" Property="UF" Title="UF" Width="90px" />

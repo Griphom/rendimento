@@ -24,8 +24,8 @@ namespace Servicing.Controllers
             return Ok(items);
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<Lotes>> GetLoteById(int id)
+        [HttpGet("{id:long}")]
+        public async Task<ActionResult<Lotes>> GetLoteById(long id)
         {
             var item = await service.GetLotesByIdLote(id);
             if (item == null)
@@ -48,8 +48,8 @@ namespace Servicing.Controllers
             return CreatedAtAction(nameof(GetLoteById), new { id = created.IdLote }, created);
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Lotes>> UpdateLote(int id, [FromBody] Lotes lote)
+        [HttpPut("{id:long}")]
+        public async Task<ActionResult<Lotes>> UpdateLote(long id, [FromBody] Lotes lote)
         {
             if (!ModelState.IsValid)
             {
@@ -71,8 +71,8 @@ namespace Servicing.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteLote(int id)
+        [HttpDelete("{id:long}")]
+        public async Task<IActionResult> DeleteLote(long id)
         {
             var existing = await service.GetLotesByIdLote(id);
             if (existing == null)

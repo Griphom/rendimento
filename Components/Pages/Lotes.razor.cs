@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Radzen;
+using CedenteEntity = Servicing.Models.sql_rendimento_consignado.Cedentes;
 using LoteEntity = Servicing.Models.sql_rendimento_consignado.Lotes;
 
 namespace Servicing.Components.Pages
@@ -17,12 +18,20 @@ namespace Servicing.Components.Pages
         protected NotificationService NotificationService { get; set; }
 
         protected IList<LoteEntity> lotes = new List<LoteEntity>();
+        protected IList<CedenteEntity> cedentes = new List<CedenteEntity>();
         protected LoteEntity editModel = new LoteEntity();
         protected bool isEditing;
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadCedentes();
             await LoadLotes();
+        }
+
+        protected async Task LoadCedentes()
+        {
+            var query = await Service.GetCedentes();
+            cedentes = query.OrderBy(c => c.Nome).ToList();
         }
 
         protected async Task LoadLotes()
@@ -35,6 +44,11 @@ namespace Servicing.Components.Pages
         {
             editModel = new LoteEntity();
             isEditing = false;
+        }
+
+        protected string GetCedenteNome(long idCedente)
+        {
+            return cedentes.FirstOrDefault(c => c.IdCedente == idCedente)?.Nome ?? idCedente.ToString();
         }
 
         protected void BeginEdit(LoteEntity item)

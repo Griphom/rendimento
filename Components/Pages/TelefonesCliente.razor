@@ -11,9 +11,9 @@
         <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Data="@editModel" Submit="@SaveTelefone">
             <RadzenRow Gap="1rem" RowGap="1rem">
                 <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Id Cliente" Component="IdCliente" />
-                    <RadzenNumeric Name="IdCliente" TValue="long" @bind-Value="editModel.IdCliente" Style="width: 100%;" />
-                    <RadzenRequiredValidator Component="IdCliente" Text="IdCliente e obrigatorio" Popup="true" />
+                    <RadzenLabel Text="Cliente" Component="IdCliente" />
+                    <RadzenDropDown Name="IdCliente" TValue="long" Data="@clientes" TextProperty="Nome" ValueProperty="IdCliente" @bind-Value="editModel.IdCliente" Style="width: 100%;" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" />
+                    <RadzenRequiredValidator Component="IdCliente" Text="Cliente e obrigatorio" Popup="true" />
                 </RadzenColumn>
                 <RadzenColumn Size="12" SizeMD="3">
                     <RadzenLabel Text="Prefixo" Component="Prefixo" />
@@ -70,7 +70,11 @@
         <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Data="@telefones" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhum telefone encontrado.">
             <Columns>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="IdTelefone" Title="ID" Width="100px" />
-                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="IdCliente" Title="Cliente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Title="Cliente" Width="220px">
+                    <Template Context="item">
+                        @GetClienteNome(item.IdCliente)
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="DDD" Title="DDD" Width="90px" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="Numero" Title="Numero" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.TelefonesCliente" Property="Apelido" Title="Apelido" />

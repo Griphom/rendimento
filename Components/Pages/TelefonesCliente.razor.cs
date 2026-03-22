@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Radzen;
+using ClienteEntity = Servicing.Models.sql_rendimento_consignado.Clientes;
 using TelefoneEntity = Servicing.Models.sql_rendimento_consignado.TelefonesCliente;
 
 namespace Servicing.Components.Pages
@@ -17,12 +18,20 @@ namespace Servicing.Components.Pages
         protected NotificationService NotificationService { get; set; }
 
         protected IList<TelefoneEntity> telefones = new List<TelefoneEntity>();
+        protected IList<ClienteEntity> clientes = new List<ClienteEntity>();
         protected TelefoneEntity editModel = new TelefoneEntity();
         protected bool isEditing;
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadClientes();
             await LoadTelefones();
+        }
+
+        protected async Task LoadClientes()
+        {
+            var query = await Service.GetClientes();
+            clientes = query.OrderBy(c => c.Nome).ToList();
         }
 
         protected async Task LoadTelefones()
@@ -35,6 +44,11 @@ namespace Servicing.Components.Pages
         {
             editModel = new TelefoneEntity();
             isEditing = false;
+        }
+
+        protected string GetClienteNome(long idCliente)
+        {
+            return clientes.FirstOrDefault(c => c.IdCliente == idCliente)?.Nome ?? idCliente.ToString();
         }
 
         protected void BeginEdit(TelefoneEntity item)

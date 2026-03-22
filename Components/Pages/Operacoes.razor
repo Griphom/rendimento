@@ -11,14 +11,14 @@
         <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Data="@editModel" Submit="@SaveOperacao">
             <RadzenRow Gap="1rem" RowGap="1rem">
                 <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Id Lote" Component="IdLote" />
-                    <RadzenNumeric Name="IdLote" TValue="int" @bind-Value="editModel.IdLote" Style="width: 100%;" />
-                    <RadzenRequiredValidator Component="IdLote" Text="IdLote e obrigatorio" Popup="true" />
+                    <RadzenLabel Text="Lote" Component="IdLote" />
+                    <RadzenDropDown Name="IdLote" TValue="long" Data="@lotes" TextProperty="IdentificadorExt" ValueProperty="IdLote" @bind-Value="editModel.IdLote" Style="width: 100%;" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" />
+                    <RadzenRequiredValidator Component="IdLote" Text="Lote e obrigatorio" Popup="true" />
                 </RadzenColumn>
                 <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Id Cliente" Component="IdCliente" />
-                    <RadzenNumeric Name="IdCliente" TValue="long" @bind-Value="editModel.IdCliente" Style="width: 100%;" />
-                    <RadzenRequiredValidator Component="IdCliente" Text="IdCliente e obrigatorio" Popup="true" />
+                    <RadzenLabel Text="Cliente" Component="IdCliente" />
+                    <RadzenDropDown Name="IdCliente" TValue="long" Data="@clientes" TextProperty="Nome" ValueProperty="IdCliente" @bind-Value="editModel.IdCliente" Style="width: 100%;" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" />
+                    <RadzenRequiredValidator Component="IdCliente" Text="Cliente e obrigatorio" Popup="true" />
                 </RadzenColumn>
                 <RadzenColumn Size="12" SizeMD="3">
                     <RadzenLabel Text="Valor Original" Component="ValorOriginal" />
@@ -77,8 +77,16 @@
         <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Data="@operacoes" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhuma operacao encontrada.">
             <Columns>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="IdOperacao" Title="ID" Width="100px" />
-                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="IdLote" Title="Lote" Width="100px" />
-                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="IdCliente" Title="Cliente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Title="Lote" Width="220px">
+                    <Template Context="item">
+                        @GetLoteNome(item.IdLote)
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Title="Cliente" Width="220px">
+                    <Template Context="item">
+                        @GetClienteNome(item.IdCliente)
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="ValorOriginal" Title="Valor Original" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Property="QuantidadeParcelas" Title="Parcelas" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Operacoes" Title="Acoes" Width="170px" Sortable="false" Filterable="false" TextAlign="TextAlign.Center">

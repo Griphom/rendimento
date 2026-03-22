@@ -11,9 +11,9 @@
         <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Data="@editModel" Submit="@SaveCliente">
             <RadzenRow Gap="1rem" RowGap="1rem">
                 <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Id Cedente" Component="IdCedente" />
-                    <RadzenNumeric Name="IdCedente" TValue="int" @bind-Value="editModel.IdCedente" Style="width: 100%;" />
-                    <RadzenRequiredValidator Component="IdCedente" Text="IdCedente e obrigatorio" Popup="true" />
+                    <RadzenLabel Text="Cedente" Component="IdCedente" />
+                    <RadzenDropDown Name="IdCedente" TValue="long" Data="@cedentes" TextProperty="Nome" ValueProperty="IdCedente" @bind-Value="editModel.IdCedente" Style="width: 100%;" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" />
+                    <RadzenRequiredValidator Component="IdCedente" Text="Cedente e obrigatorio" Popup="true" />
                 </RadzenColumn>
                 <RadzenColumn Size="12" SizeMD="9">
                     <RadzenLabel Text="Nome" Component="Nome" />
@@ -77,7 +77,11 @@
         <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Data="@clientes" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhum cliente encontrado.">
             <Columns>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="IdCliente" Title="ID" Width="100px" />
-                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="IdCedente" Title="Cedente" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Title="Cedente" Width="220px">
+                    <Template Context="item">
+                        @GetCedenteNome(item.IdCedente)
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="Nome" Title="Nome" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="CPF_CNPJ" Title="CPF/CNPJ" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Clientes" Property="Email" Title="Email" />

@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using ClienteEntity = Servicing.Models.sql_rendimento_consignado.Clientes;
+using CedenteEntity = Servicing.Models.sql_rendimento_consignado.Cedentes;
 
 namespace Servicing.Components.Pages
 {
@@ -17,12 +18,20 @@ namespace Servicing.Components.Pages
         protected NotificationService NotificationService { get; set; }
 
         protected IList<ClienteEntity> clientes = new List<ClienteEntity>();
+        protected IList<CedenteEntity> cedentes = new List<CedenteEntity>();
         protected ClienteEntity editModel = new ClienteEntity();
         protected bool isEditing;
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadCedentes();
             await LoadClientes();
+        }
+
+        protected async Task LoadCedentes()
+        {
+            var query = await Service.GetCedentes();
+            cedentes = query.OrderBy(c => c.Nome).ToList();
         }
 
         protected async Task LoadClientes()
@@ -35,6 +44,11 @@ namespace Servicing.Components.Pages
         {
             editModel = new ClienteEntity();
             isEditing = false;
+        }
+
+        protected string GetCedenteNome(long idCedente)
+        {
+            return cedentes.FirstOrDefault(c => c.IdCedente == idCedente)?.Nome ?? idCedente.ToString();
         }
 
         protected void BeginEdit(ClienteEntity item)

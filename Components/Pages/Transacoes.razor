@@ -11,9 +11,9 @@
         <RadzenTemplateForm TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Data="@editModel" Submit="@SaveTransacao">
             <RadzenRow Gap="1rem" RowGap="1rem">
                 <RadzenColumn Size="12" SizeMD="3">
-                    <RadzenLabel Text="Id Operacao" Component="IdOperacao" />
-                    <RadzenNumeric Name="IdOperacao" TValue="long" @bind-Value="editModel.IdOperacao" Style="width: 100%;" />
-                    <RadzenRequiredValidator Component="IdOperacao" Text="IdOperacao e obrigatorio" Popup="true" />
+                    <RadzenLabel Text="Operacao" Component="IdOperacao" />
+                    <RadzenDropDown Name="IdOperacao" TValue="long" Data="@operacoesLookup" TextProperty="Nome" ValueProperty="Id" @bind-Value="editModel.IdOperacao" Style="width: 100%;" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" />
+                    <RadzenRequiredValidator Component="IdOperacao" Text="Operacao e obrigatoria" Popup="true" />
                 </RadzenColumn>
                 <RadzenColumn Size="12" SizeMD="3">
                     <RadzenLabel Text="Valor Original" Component="ValorOriginal" />
@@ -57,7 +57,11 @@
         <RadzenDataGrid TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Data="@transacoes" AllowSorting="true" AllowPaging="true" PageSize="10" EmptyText="Nenhuma transacao encontrada.">
             <Columns>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Property="IdTransacao" Title="ID" Width="100px" />
-                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Property="IdOperacao" Title="Operacao" Width="120px" />
+                <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Title="Operacao" Width="260px">
+                    <Template Context="item">
+                        @GetOperacaoNome(item.IdOperacao)
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Property="NumeroParcela" Title="Parcela" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Property="ValorDesconto" Title="Valor Desconto" />
                 <RadzenDataGridColumn TItem="Servicing.Models.sql_rendimento_consignado.Transacoes" Property="DataDesconto" Title="Data Desconto" />

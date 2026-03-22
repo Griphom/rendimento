@@ -109,7 +109,7 @@ namespace Servicing
         partial void OnGetCedentesByIdCedente(ref IQueryable<Servicing.Models.sql_rendimento_consignado.Cedentes> items);
 
 
-        public async Task<Servicing.Models.sql_rendimento_consignado.Cedentes> GetCedentesByIdCedente(int idcedente)
+        public async Task<Servicing.Models.sql_rendimento_consignado.Cedentes> GetCedentesByIdCedente(long idcedente)
         {
             var items = Context.Cedentes
                               .AsNoTracking()
@@ -172,7 +172,7 @@ namespace Servicing
         partial void OnCedentesUpdated(Servicing.Models.sql_rendimento_consignado.Cedentes item);
         partial void OnAfterCedentesUpdated(Servicing.Models.sql_rendimento_consignado.Cedentes item);
 
-        public async Task<Servicing.Models.sql_rendimento_consignado.Cedentes> UpdateCedentes(int idcedente, Servicing.Models.sql_rendimento_consignado.Cedentes cedentes)
+        public async Task<Servicing.Models.sql_rendimento_consignado.Cedentes> UpdateCedentes(long idcedente, Servicing.Models.sql_rendimento_consignado.Cedentes cedentes)
         {
             OnCedentesUpdated(cedentes);
 
@@ -199,7 +199,7 @@ namespace Servicing
         partial void OnCedentesDeleted(Servicing.Models.sql_rendimento_consignado.Cedentes item);
         partial void OnAfterCedentesDeleted(Servicing.Models.sql_rendimento_consignado.Cedentes item);
 
-        public async Task<Servicing.Models.sql_rendimento_consignado.Cedentes> DeleteCedentes(int idcedente)
+        public async Task<Servicing.Models.sql_rendimento_consignado.Cedentes> DeleteCedentes(long idcedente)
         {
             var itemToDelete = Context.Cedentes
                               .Where(i => i.IdCedente == idcedente)
@@ -599,7 +599,7 @@ namespace Servicing
         partial void OnGetLotesByIdLote(ref IQueryable<Servicing.Models.sql_rendimento_consignado.Lotes> items);
 
 
-        public async Task<Servicing.Models.sql_rendimento_consignado.Lotes> GetLotesByIdLote(int idlote)
+        public async Task<Servicing.Models.sql_rendimento_consignado.Lotes> GetLotesByIdLote(long idlote)
         {
             var items = Context.Lotes
                               .AsNoTracking()
@@ -663,7 +663,7 @@ namespace Servicing
         partial void OnLotesUpdated(Servicing.Models.sql_rendimento_consignado.Lotes item);
         partial void OnAfterLotesUpdated(Servicing.Models.sql_rendimento_consignado.Lotes item);
 
-        public async Task<Servicing.Models.sql_rendimento_consignado.Lotes> UpdateLotes(int idlote, Servicing.Models.sql_rendimento_consignado.Lotes lotes)
+        public async Task<Servicing.Models.sql_rendimento_consignado.Lotes> UpdateLotes(long idlote, Servicing.Models.sql_rendimento_consignado.Lotes lotes)
         {
             OnLotesUpdated(lotes);
 
@@ -690,7 +690,7 @@ namespace Servicing
         partial void OnLotesDeleted(Servicing.Models.sql_rendimento_consignado.Lotes item);
         partial void OnAfterLotesDeleted(Servicing.Models.sql_rendimento_consignado.Lotes item);
 
-        public async Task<Servicing.Models.sql_rendimento_consignado.Lotes> DeleteLotes(int idlote)
+        public async Task<Servicing.Models.sql_rendimento_consignado.Lotes> DeleteLotes(long idlote)
         {
             var itemToDelete = Context.Lotes
                               .Where(i => i.IdLote == idlote)

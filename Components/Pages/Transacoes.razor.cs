@@ -1,6 +1,8 @@
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Radzen;
+using ClienteEntity = Servicing.Models.sql_rendimento_consignado.Clientes;
+using OperacaoEntity = Servicing.Models.sql_rendimento_consignado.Operacoes;
 using TransacaoEntity = Servicing.Models.sql_rendimento_consignado.Transacoes;
 
 namespace Servicing.Components.Pages
@@ -17,12 +19,32 @@ namespace Servicing.Components.Pages
         protected NotificationService NotificationService { get; set; }
 
         protected IList<TransacaoEntity> transacoes = new List<TransacaoEntity>();
+        protected IList<OperacaoLookupItem> operacoesLookup = new List<OperacaoLookupItem>();
         protected TransacaoEntity editModel = new TransacaoEntity();
         protected bool isEditing;
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadOperacoesLookup();
             await LoadTransacoes();
+        }
+
+        protected async Task LoadOperacoesLookup()
+        {
+            var operacoesQuery = await Service.GetOperacoes();
+            var clientesQuery = await Service.GetClientes();
+
+            var operacoes = operacoesQuery.ToList();
+            var clientes = clientesQuery.ToList();
+
+            operacoesLookup = operacoes
+                .Select(o => new OperacaoLookupItem
+                {
+                    Id = o.IdOperacao,
+                    Nome = $"{o.IdOperacao} - {clientes.FirstOrDefault(c => c.IdCliente == o.IdCliente)?.Nome ?? "Sem cliente"}"
+                })
+                .OrderBy(o => o.Nome)
+                .ToList();
         }
 
         protected async Task LoadTransacoes()
@@ -35,6 +57,11 @@ namespace Servicing.Components.Pages
         {
             editModel = new TransacaoEntity();
             isEditing = false;
+        }
+
+        protected string GetOperacaoNome(long idOperacao)
+        {
+            return operacoesLookup.FirstOrDefault(o => o.Id == idOperacao)?.Nome ?? idOperacao.ToString();
         }
 
         protected void BeginEdit(TransacaoEntity item)
@@ -101,6 +128,12 @@ namespace Servicing.Components.Pages
             {
                 NotificationService.Notify(NotificationSeverity.Error, "Erro ao excluir", ex.Message);
             }
+        }
+
+        protected class OperacaoLookupItem
+        {
+            public long Id { get; set; }
+            public string Nome { get; set; }
         }
     }
 }

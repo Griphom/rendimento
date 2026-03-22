@@ -14,7 +14,7 @@ namespace Servicing.Models.sql_rendimento_consignado
 
         [Required]
         [ConcurrencyCheck]
-        public int IdCedente { get; set; }
+        public long IdCedente { get; set; }
 
         [Required]
         [ConcurrencyCheck]

@@ -1,6 +1,8 @@
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Radzen;
+using ClienteEntity = Servicing.Models.sql_rendimento_consignado.Clientes;
+using LoteEntity = Servicing.Models.sql_rendimento_consignado.Lotes;
 using OperacaoEntity = Servicing.Models.sql_rendimento_consignado.Operacoes;
 
 namespace Servicing.Components.Pages
@@ -17,12 +19,28 @@ namespace Servicing.Components.Pages
         protected NotificationService NotificationService { get; set; }
 
         protected IList<OperacaoEntity> operacoes = new List<OperacaoEntity>();
+        protected IList<LoteEntity> lotes = new List<LoteEntity>();
+        protected IList<ClienteEntity> clientes = new List<ClienteEntity>();
         protected OperacaoEntity editModel = new OperacaoEntity();
         protected bool isEditing;
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadLotes();
+            await LoadClientes();
             await LoadOperacoes();
+        }
+
+        protected async Task LoadLotes()
+        {
+            var query = await Service.GetLotes();
+            lotes = query.OrderBy(c => c.IdentificadorExt).ToList();
+        }
+
+        protected async Task LoadClientes()
+        {
+            var query = await Service.GetClientes();
+            clientes = query.OrderBy(c => c.Nome).ToList();
         }
 
         protected async Task LoadOperacoes()
@@ -35,6 +53,17 @@ namespace Servicing.Components.Pages
         {
             editModel = new OperacaoEntity();
             isEditing = false;
+        }
+
+        protected string GetLoteNome(long idLote)
+        {
+            var lote = lotes.FirstOrDefault(l => l.IdLote == idLote);
+            return lote?.IdentificadorExt ?? idLote.ToString();
+        }
+
+        protected string GetClienteNome(long idCliente)
+        {
+            return clientes.FirstOrDefault(c => c.IdCliente == idCliente)?.Nome ?? idCliente.ToString();
         }
 
         protected void BeginEdit(OperacaoEntity item)
