@@ -26,16 +26,24 @@
         <RadzenStack AlignItems="Radzen.AlignItems.Center" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding); border-bottom: var(--rz-panel-menu-item-border);">
             <RadzenText Text="Servicing" TextStyle="Radzen.Blazor.TextStyle.Subtitle1" class="rz-mb-0" style="color: var(--rz-sidebar-color);" />
         </RadzenStack>
-        <RadzenPanelMenu>
+        <RadzenPanelMenu Multiple="true">
             <RadzenPanelMenuItem Text="Home" Path="" />
-            <RadzenPanelMenuItem Text="Cedentes" Path="cedentes" />
-            <RadzenPanelMenuItem Text="Clientes" Path="clientes" />
-            <RadzenPanelMenuItem Text="Enderecos Cliente" Path="enderecos-cliente" />
-            <RadzenPanelMenuItem Text="Lotes" Path="lotes" />
-            <RadzenPanelMenuItem Text="Operacoes" Path="operacoes" />
-            <RadzenPanelMenuItem Text="Telefones Cliente" Path="telefones-cliente" />
-            <RadzenPanelMenuItem Text="Transacoes" Path="transacoes" />
-            <RadzenPanelMenuItem Text="Conferencia Descontos" Path="conferencia-descontos" />
+            <RadzenPanelMenuItem Text="Cadastros">
+                <RadzenPanelMenuItem Text="Cedentes" Path="cedentes" />
+                <RadzenPanelMenuItem Text="Lotes" Path="lotes" />
+                <RadzenPanelMenuItem Text="Clientes" Path="clientes" />
+                <RadzenPanelMenuItem Text="Dados de Cliente">
+                    <RadzenPanelMenuItem Text="Telefones Cliente" Path="telefones-cliente" />
+                    <RadzenPanelMenuItem Text="Enderecos Cliente" Path="enderecos-cliente" />
+                </RadzenPanelMenuItem>
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Operacoes">
+                <RadzenPanelMenuItem Text="Operacoes" Path="operacoes" />
+                <RadzenPanelMenuItem Text="Transacoes" Path="transacoes" />
+            </RadzenPanelMenuItem>
+            <RadzenPanelMenuItem Text="Acompanhamento">
+                <RadzenPanelMenuItem Text="Conferencia Descontos" Path="conferencia-descontos" />
+            </RadzenPanelMenuItem>
         </RadzenPanelMenu>
         <RadzenStack AlignItems="Radzen.AlignItems.Center" Gap="0" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding);">
             <RadzenText Text="Servicing v1.0.0" TextStyle="Radzen.Blazor.TextStyle.Caption" TagName="Radzen.Blazor.TagName.P" TextAlign="Radzen.TextAlign.Center" />

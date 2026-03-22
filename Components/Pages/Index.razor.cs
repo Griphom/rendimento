@@ -14,6 +14,11 @@ namespace Servicing.Components.Pages
 {
     public partial class Index
     {
+        protected string ChangelogVersion { get; } = "v1.6.0";
+        protected DateTime ChangelogUpdatedAt { get; } = new DateTime(2026, 3, 22);
+        protected string ChangelogVersionLabel => $"Versão atual: {ChangelogVersion}";
+        protected string ChangelogUpdatedLabel => $"Última atualização: {ChangelogUpdatedAt:dd/MM/yyyy}";
+
         [Inject]
         protected IJSRuntime JSRuntime { get; set; }
 

@@ -6,3 +6,36 @@
     </RadzenColumn>
 </RadzenRow>
 
+<RadzenRow Gap="16px" RowGap="16px" class="rz-mt-4">
+    <RadzenColumn Size="12" SizeMD="8">
+        <RadzenCard>
+            <RadzenStack Gap="8px">
+                <RadzenText Text="Resumo das funcionalidades implementadas" TextStyle="Radzen.Blazor.TextStyle.H5" />
+                <ul class="rz-m-0 rz-pl-4">
+                    <li>CRUD completo (API e telas) para Cedentes, Clientes, Endereços, Lotes, Operações, Telefones e Transações.</li>
+                    <li>Combobox de relacionamentos nas telas para exibir nomes e persistir IDs corretamente.</li>
+                    <li>Tela de conferência de descontos com filtros por Cedente, Lote opcional e Mês de referência.</li>
+                    <li>View analítica para comparação entre previsto x realizado com status de divergência.</li>
+                    <li>Ajustes de tipagem e conversões para reduzir falhas de int versus long nos fluxos principais.</li>
+                </ul>
+            </RadzenStack>
+        </RadzenCard>
+    </RadzenColumn>
+
+    <RadzenColumn Size="12" SizeMD="4">
+        <RadzenCard>
+            <RadzenStack Gap="6px">
+                <RadzenText Text="Changelog" TextStyle="Radzen.Blazor.TextStyle.H6" />
+                <RadzenText Text="@ChangelogVersionLabel" TextStyle="Radzen.Blazor.TextStyle.Body1" />
+                <RadzenText Text="@ChangelogUpdatedLabel" TextStyle="Radzen.Blazor.TextStyle.Body2" />
+                <ul class="rz-m-0 rz-pl-4">
+                    <li>Menu de navegação reorganizado por categorias: Cadastros, Operacoes e Acompanhamento.</li>
+                    <li>Subcategoria "Dados de Cliente" criada em Cadastros com Telefones Cliente e Enderecos Cliente.</li>
+                    <li>Bind explícito aplicado para expandir e colapsar categorias do menu lateral.</li>
+                    <li>Correção de navegação por clique com direcionamento para as rotas das páginas.</li>
+                </ul>
+            </RadzenStack>
+        </RadzenCard>
+    </RadzenColumn>
+</RadzenRow>
+

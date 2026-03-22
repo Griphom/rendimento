@@ -38,5 +38,6 @@ namespace Servicing.Components.Layout
         {
             sidebarExpanded = !sidebarExpanded;
         }
+
     }
 }
